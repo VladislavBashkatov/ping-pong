@@ -3,7 +3,7 @@ from pygame import *
 from random import randint
 from time import time as timer
 
-win_width = 700
+win_width = 600
 win_height = 500
 display.set_caption("Shooter")
 window = display.set_mode((win_width, win_height))
@@ -14,6 +14,11 @@ finish = False
 clock = time.Clock()
 FPS = 120
 
+
+font.init()
+font = font.Font(None, 35)
+lose1  = font.render('1 PLAYER LOSE!", True, (180,0,0))
+lose2  = font.render('2 PLAYER LOSE!", True, (180,0,0))                     
 
 
 class GameSprite(sprite.Sprite):
@@ -47,7 +52,7 @@ class Player(GameSprite):
         if keys[K_DOWN] self.rect.y< 400
             self.rect.x += self.speed
 
-racket1 = Player("rct1", 30, 200, 4, 50, 150)
+racket1 = Player("rct1.", 30, 200, 4, 50, 150)
 racket2 = Player("rct2", 520, 200, 4, 50, 50)
 pong = GameSprite("ball", 200, 200, 4, 50, 50)
 
@@ -61,3 +66,16 @@ while game:
     racket2.update_r()
     ball.rect.x += speed_x
     ball.rect.y += speed_y
+
+    
+   if ball.rect.y > win.height-50 or ball.rect.y < 0:
+    speed_y *= -1
+    
+   if sprite.collide_rect(racket1,ball)
+    or sprite.collide_rect(racket2,ball)
+        speed_x += -1
+      
+   if ball.rect.x < 0:
+        finish = True
+   if ball.rect.x > 600:
+        finish = True
